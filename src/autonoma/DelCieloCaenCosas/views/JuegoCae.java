@@ -114,7 +114,7 @@ public class JuegoCae extends JPanel implements MouseListener {
     @Override public void mouseReleased(MouseEvent e) {}
     @Override public void mouseEntered(MouseEvent e) {}
     @Override public void mouseExited(MouseEvent e) {}
-}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -137,7 +137,6 @@ public class JuegoCae extends JPanel implements MouseListener {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-}
