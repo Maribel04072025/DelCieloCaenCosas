@@ -27,7 +27,7 @@ public abstract class ObjetoQueCae {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, imagen.getWidth(null), imagen.getHeight(null));
+        return new Rectangle(x, y, 60, 60); 
     }
 
     public Image getImagen() {

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package autonoma.DelCieloCaenCosas.motor;
+package autonoma.DelCieloCaenCosas.views;
 
 /**
  *
@@ -16,22 +16,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.Collections;
 
 public class JuegoCae extends JPanel implements MouseListener {
-    private ArrayList<ObjetoQueCae> objetos;
+    private List<ObjetoQueCae> objetos;
     private Image imgComida, imgVeneno;
     private int puntaje = 0;
 
     public JuegoCae() {
-        this.setPreferredSize(new Dimension(800, 600));
-        this.setBackground(Color.WHITE);
-        this.addMouseListener(this);
-        objetos = new ArrayList<>();
+        setPreferredSize(new Dimension(800, 600));
+        setBackground(Color.WHITE);
+        addMouseListener(this);
 
-        imgComida = new ImageIcon("recursos/comida.png").getImage();
-        imgVeneno = new ImageIcon("recursos/veneno.png").getImage();
+        objetos = Collections.synchronizedList(new ArrayList<>());
+
+        imgComida = new ImageIcon(getClass().getResource("/autonoma/DelCieloCaenCosas/resources/comida.png")).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+
+        imgVeneno = new ImageIcon(getClass().getResource("/autonoma/DelCieloCaenCosas/resources/veneno.png")).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 
         // Hilos
         new Thread(() -> {
@@ -54,8 +58,15 @@ public class JuegoCae extends JPanel implements MouseListener {
 
         // Bucle principal
         new Timer(30, e -> {
-            for (ObjetoQueCae o : objetos) {
-                o.mover();
+            synchronized (objetos) {
+                Iterator<ObjetoQueCae> it = objetos.iterator();
+                while (it.hasNext()) {
+                    ObjetoQueCae o = it.next();
+                    o.mover();
+                    if (o.getY() > getHeight()) {
+                      it.remove();
+                    }
+                }
             }
             repaint();
         }).start();
