@@ -6,7 +6,7 @@ package autonoma.DelCieloCaenCosas.views;
 
 /**
  *
- * @author marib
+ * @author Juan Esteban Hernadez
  */
 
 import autonoma.DelCieloCaenCosas.modelo.Comida;
